@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Создать заказ{% endblock %}
+
+{% block body %}
+    <h1>Создать заказ</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.service, {'attr': {'id': 'order_service'}}) }}
+    {{ form_row(form.price, {'attr': {'id': 'order_price'}}) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+
+    <script>
+        var serviceSelect = document.getElementById('order_service');
+        var priceField = document.getElementById('order_price');
+
+        function updatePrice() {
+
+            var selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+
+            var price = selectedOption.getAttribute('data-price');
+
+            priceField.value = price;
+        }
+
+        serviceSelect.addEventListener('change', updatePrice);
+
+        updatePrice();
+    </script>
+{% endblock %}
